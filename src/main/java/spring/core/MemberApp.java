@@ -19,3 +19,6 @@ public class MemberApp {
 }
 // 현재 코드의 저장소를 다른 것으로 바꿀 때, OCP를 잘 지키고 있는 것인지.
 // DIP를 잘 지키고 있는지.
+
+// MemoryMemberRepository => MemberRepository : 저장(save()) 및 찾기(findById())
+// MemberServiceImpl => MemberService : 회원 생성(join) 및 찾기(findMember())
