@@ -12,18 +12,20 @@ import spring.core.order.OrderServiceImpl;
 
 public class OrderApp {
     public static void main(String[] args) {
+
+// Impl에 의존 주입을 지키지 않을 때
+//        OrderService orderService = new OrderServiceImpl();
+//        MemberService memberService = new MemberServiceImpl();
+
+// AppConfig 사용으로, DIP와 OCP를 지킨 코드
 //        AppConfig appConfig = new AppConfig();
 //        OrderService orderService = appConfig.orderService();
 //        MemberService memberService = appConfig.memberService();
+
 // spring으로 전환
-
-
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class); // appconfig의 bean을 spring container에 등록시켜준다.
         MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
         OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
-
-//        OrderService orderService = new OrderServiceImpl();
-//        MemberService memberService = new MemberServiceImpl();
 
         Long memberId = 1L;
         Member member = new Member("memberA", memberId, Grade.VIP);

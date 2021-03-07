@@ -26,18 +26,19 @@ public class AppConfig {
 //    public OrderService orderService() {
 //        return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
 //    }
-//    
+//
 
     // Refactoring => 역할과 구현 클래스가 한눈에 들어온다.
+    // Bean으로 등록된 객체는 모두 인터페이스(역할) => 구현체는 인터페이스 메서드의 리턴체
     @Bean
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository());
     }
+
     @Bean
     public MemberRepository memberRepository() {
         return new MemoryMemberRepository();
     }
-
 
     @Bean
     public OrderService orderService() {
@@ -49,8 +50,6 @@ public class AppConfig {
     public DiscountPolicy discountPolicy() {
         return new FixDiscountPolicy();
     }
-//    @Bean을 붙임으로 스프링 컨테이너에 등록하게 된다.
-
-
 }
+//    @Bean을 붙임으로 스프링 컨테이너에 등록하게 된다.
 

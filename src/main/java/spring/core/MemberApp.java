@@ -9,12 +9,15 @@ import spring.core.member.MemberServiceImpl;
 
 public class MemberApp {
     public static void main(String[] args) {
-        AppConfig appConfig = new AppConfig();
-        MemberService memberService = appConfig.memberService();
 
-        // ApplicationContext가 곧 스프링 컨테이너다.
+        // Appconfig에 의존성 주입한 경우
+//        AppConfig appConfig = new AppConfig();
+//        MemberService memberService = appConfig.memberService();
+
+        // spring container 사용한 경우
+        // ApplicationContext == 스프링 컨테이너
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class); // appconfig의 bean을 spring container에 등록시켜준다.
-        applicationContext.getBean("memberService", MemberService.class); // appconfig의 bean을 가져온다.
+        MemberService memberService = applicationContext.getBean("memberService", MemberService.class);// appconfig의 bean을 가져온다.
 
 //        MemberService memberService = new MemberServiceImpl(); // appConfig가 생기면서 지운다.
         Member member = new Member("memberA", 1L, Grade.VIP);
