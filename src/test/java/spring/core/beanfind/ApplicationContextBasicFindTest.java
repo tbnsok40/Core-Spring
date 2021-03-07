@@ -10,7 +10,7 @@ import spring.core.member.MemberService;
 import spring.core.member.MemberServiceImpl;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
+// 전체 빈 조회가 아닌 특정 빈 조회 (findByName, Type)
 public class ApplicationContextBasicFindTest {
 
     AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
@@ -39,7 +39,7 @@ public class ApplicationContextBasicFindTest {
         Assertions.assertThat(memberService).isInstanceOf(MemberServiceImpl.class);
     }
 
-    // 실패케이스
+    // 실케이스
     @Test
     @DisplayName("빈 이름으로 조회X")
     void findBeanByNameX() {
