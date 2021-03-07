@@ -1,5 +1,7 @@
 package spring.core;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import spring.core.member.Grade;
 import spring.core.member.Member;
 import spring.core.member.MemberService;
@@ -7,7 +9,14 @@ import spring.core.member.MemberServiceImpl;
 
 public class MemberApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+
+        // ApplicationContext가 곧 스프링 컨테이너다.
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class); // appconfig의 bean을 spring container에 등록시켜준다.
+        applicationContext.getBean("memberService", MemberService.class); // appconfig의 bean을 가져온다.
+
+//        MemberService memberService = new MemberServiceImpl(); // appConfig가 생기면서 지운다.
         Member member = new Member("memberA", 1L, Grade.VIP);
         memberService.join(member);
 
@@ -22,3 +31,6 @@ public class MemberApp {
 
 // MemoryMemberRepository => MemberRepository : 저장(save()) 및 찾기(findById())
 // MemberServiceImpl => MemberService : 회원 생성(join) 및 찾기(findMember())
+
+// 멤버들을 만들고, 주문을 하고, 주문에 할인을 넣기
+// 학생을 만들고, 수강신청을 하고, 성적 부여하기
