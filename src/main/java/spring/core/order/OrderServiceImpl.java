@@ -1,5 +1,7 @@
 package spring.core.order;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import spring.core.discount.DiscountPolicy;
 import spring.core.discount.FixDiscountPolicy;
 import spring.core.discount.RateDiscountPolicy;
@@ -7,6 +9,7 @@ import spring.core.member.Member;
 import spring.core.member.MemberRepository;
 import spring.core.member.MemoryMemberRepository;
 
+@Component
 public class OrderServiceImpl implements OrderService {
 
 //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy(); //고정 할인이 아닌 rateDiscount로 바꾸고 싶으면, new 이하 부분만 갈아끼우면 된다.
@@ -22,6 +25,8 @@ public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository;
 
+
+    @Autowired // 생성자에 @autowired 어노테이션 붙인다.
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) { // 철저히 인터페이스에만 의존하고 있다.
         this.discountPolicy = discountPolicy;
         this.memberRepository = memberRepository;

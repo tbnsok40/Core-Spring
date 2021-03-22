@@ -22,7 +22,6 @@ public class AppConfig {
 //        return new MemberServiceImpl(new MemoryMemberRepository());
 //        // 생성자 MemberServiceImpl에 구현객체(MemoryMemberRepository를 주입) in AppConfig
 //    }
-//
 //    public OrderService orderService() {
 //        return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
 //    }
@@ -52,4 +51,10 @@ public class AppConfig {
     }
 }
 //    @Bean을 붙임으로 스프링 컨테이너에 등록하게 된다.
+
+// @Bean memberService --> new MemoryMemberRepository();
+// @Bean orderService --> new MemoryMemberRepository(); 싱글톤이 깨지는것 아닐까? 각각 다른 2개의 MemoryMemberRepository를 생성하기에 싱글톤을 깨는것 처럼 보인다.
+// CGLIB에 의해 한번만 호출된다. 한번 스프링 빈에 등록되면 재호출하지 않는다 => 반대로 아직 등록되지 않은 상태라면 스프링빈에 등록시킨다.
+
+// AppConfig: 빈 등록, @configuration 어노테이션으로 인해 스프링 설정파일로 인식된다. 이게 없으면 싱글톤컨테이너 동작되지 않기에, 싱글톤 패턴 적용되지 않는다.
 

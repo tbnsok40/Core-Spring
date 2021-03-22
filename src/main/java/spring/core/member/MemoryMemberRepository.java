@@ -1,8 +1,11 @@
 package spring.core.member;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Component // for autocompscan
 public class MemoryMemberRepository implements MemberRepository {
     private static Map<Long, Member> store = new HashMap<>(); // 사실은 concurrentHashMap을 써야한다, (실무에선)
 
