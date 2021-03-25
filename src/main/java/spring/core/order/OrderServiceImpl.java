@@ -1,5 +1,4 @@
 package spring.core.order;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,9 +41,7 @@ public class OrderServiceImpl implements OrderService {
         int discountPrice = discountPolicy.discount(member, itemPrice);
         // orderService는 discountPolicy의 내용을 전혀 몰라도 되며, discount interface에 전적으로 역할을 다 넘겼다.
         // 역할과 구현이 완벽히 잘 분리되어있다. (분리만 잘 돼 있다)
-
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }
 }
-
 // 필드 주입 -> 안티 패턴: 쓰지 않는다. DI 프레임워크가 없으면 아무것도 할 수 없다.
