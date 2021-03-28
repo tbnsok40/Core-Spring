@@ -16,7 +16,7 @@ public class MemberApp {
 
         // spring container 사용한 경우
         // ApplicationContext == 스프링 컨테이너
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class); // appconfig의 bean을 spring container에 등록시켜준다.
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class); // Appconfig의 bean을 spring container에 등록시켜준다.
         MemberService memberService = applicationContext.getBean("memberService", MemberService.class);// appconfig의 bean을 가져온다.
 
 //        MemberService memberService = new MemberServiceImpl(); // appConfig가 생기면서 지운다.

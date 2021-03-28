@@ -8,12 +8,9 @@ import spring.core.discount.RateDiscountPolicy;
 import spring.core.member.Member;
 import spring.core.member.MemberRepository;
 import spring.core.member.MemoryMemberRepository;
-
-
-// 정리: 최근에는 생성자를 딱 1개를 두고, lombok 라이브러리를 사용하여 코드를 깔끔하게 만드는게 트랜드
 @Component
 @RequiredArgsConstructor // 생성자를 지워벌인다..!!! 개신기하네 --> requiredArgs: final keyword가 붙은 필드, Constructor: 생성자 / 임의의 필드(final)가 추가되는 상황에서 매우 편리하다(자동주입)
-public class OrderServiceImpl implements OrderService {
+public class  OrderServiceImpl implements OrderService {
 
 //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy(); //고정 할인이 아닌 rateDiscount로 바꾸고 싶으면, new 이하 부분만 갈아끼우면 된다.
 //    private final DiscountPolicy discountPolicy = new RateDiscountPolicy(); // 요렇게

@@ -12,9 +12,9 @@ import spring.core.order.OrderService;
 import spring.core.order.OrderServiceImpl;
 
 
-// 애플리케이션 실제 동작에 필요한 구현 객체를 직접 생성 (이전에는 각  impl코드에서 구현 객체 생성(할)
+// 애플리케이션 실제 동작에 필요한 구현 객체를 직접 생성 (이전에는 각 impl코드에서 구현 객체 생성(할)
 
-@Configuration
+@Configuration //여기가 스프링 컨테이너 자
 public class AppConfig {
 
     // memberService, OrderService는 인터페이스
@@ -41,7 +41,7 @@ public class AppConfig {
 
     @Bean
     public OrderService orderService() {
-        return new OrderServiceImpl(memberRepository(), discountPolicy());
+        return new OrderServiceImpl(discountPolicy(), memberRepository());
     }
 
     // 할인 정책 바꿀 때 아래 코드만 수정하면 된다.

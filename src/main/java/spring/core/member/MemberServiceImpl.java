@@ -11,7 +11,7 @@ public class MemberServiceImpl implements MemberService {
     // private final MemberRepository memberRepository = new MemoryMemberRepository(); // AppConfig가 생겼으니 지워준다.
     private final MemberRepository memberRepository;
 
-    @Autowired // AppConfig에선 코드로 주입을 해놨지만, auto에선 코드로 의존주입을 명시하지 않기에, @autowired를 사용
+    @Autowired // AppConfig에선 코드로 주입을 해놨지만, auto에선 코드로 의존주입을 명시하지 않기에, @autowired 사용
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }// 추상화에만 의존하게 된다. => memoryMemberRepository에 대한 코드가 전혀 없기 때문! 구체적 코드(구현코드)를 외부에서 주입시킨다(생성자 주입)
