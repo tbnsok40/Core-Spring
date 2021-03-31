@@ -1,0 +1,93 @@
+package spring.core.scope;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Scope;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.inject.Provider;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class SingletonWithPrototypeTest1 {
+
+    @Test
+    void prototypeFind() {
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(PrototypeBean.class);
+        PrototypeBean prototypeBean1 = ac.getBean(PrototypeBean.class);
+        prototypeBean1.addCount();
+        assertThat(prototypeBean1.getCount()).isEqualTo(1);
+
+
+        PrototypeBean prototypeBean2 = ac.getBean(PrototypeBean.class);
+        prototypeBean2.addCount();
+        assertThat(prototypeBean2.getCount()).isEqualTo(1);
+    }
+
+    @Test
+    void SingletonClientUsePrototype() {
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(ClientBean.class, PrototypeBean.class);
+        ClientBean clientBean1 = ac.getBean(ClientBean.class);
+        int count1 = clientBean1.logic();
+        assertThat(count1).isEqualTo(1);
+
+        ClientBean clientBean2 = ac.getBean(ClientBean.class);
+        int count2 = clientBean2.logic();
+        assertThat(count2).isEqualTo(1);
+
+    }
+
+        // Provider 사용 이
+//    static class ClientBean {
+//        private final PrototypeBean prototypeBean; // prototypeBean은 ClientBean의 생성 시점에 주입. 한번 주입되면 계속 존
+//
+//        @Autowired
+//        public ClientBean(PrototypeBean prototypeBean) {
+//            this.prototypeBean = prototypeBean;
+//        }
+//        public int logic() {
+//            prototypeBean.addCount(); // logic()이 호출되도, 이미 prototypeBean은 생성된 상태
+//            int count = prototypeBean.getCount();
+//            return count;
+//        }
+//    }
+
+        static class ClientBean {
+            @Autowired
+            public Provider<PrototypeBean> prototypeBeanProvider;
+//            public ObjectProvider<PrototypeBean> prototypeBeanProvider;
+            public int logic() {
+//                PrototypeBean prototypeBean = prototypeBeanProvider.getObject(); // 딱 필요한 기능만 가져온 것.
+                PrototypeBean prototypeBean = prototypeBeanProvider.get(); // javax.inject 사용 (위 코드는 getObject()사용)
+                prototypeBean.addCount(); // logic()이 호출되도, 이미 prototypeBean은 생성된 상태
+                int count = prototypeBean.getCount();
+                return count;
+            } // prototypeBean이 2개 생성된다.(서로다른)
+        }
+
+    @Scope("prototype")
+    static class PrototypeBean {
+        private int count = 0;
+
+        public void addCount() {
+            count++;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        @PostConstruct
+        public void init() {
+            System.out.println("PrototypeBean.init" + this);
+        }
+
+        @PreDestroy
+        public void destroy() {
+            System.out.println("prototypeBean.destroy");
+        }
+    }
+}

@@ -20,6 +20,7 @@ public class SingletonTest {
         assertThat(singletonBean1).isSameAs(singletonBean2);
         ac.close();
     }
+
     @Scope("singleton")
     static class SingletonBean {
         @PostConstruct
