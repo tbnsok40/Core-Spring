@@ -19,7 +19,8 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void join(Member member) {
         memberRepository.save(member);
-    }
+    } // 11번줄: memberRepository 선언 과정에서, new MemoryMemberRepository를 할당하지 않으면, NullPointerException 발생
+    // 역할만 있고 구현체가 없는 상황이기 때문 (MemoryMemberRepository 도 결국 memberRepository의 구현체(인터페이스 상속 받음))
 
     @Override
     public Member findMember(Long memberId) {

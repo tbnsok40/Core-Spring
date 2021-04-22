@@ -12,7 +12,6 @@ public class MemoryMemberRepository implements MemberRepository {
     @Override
     public void save(Member member) {
         store.put(member.getId(), member);
-
     }
 
     @Override
@@ -20,3 +19,4 @@ public class MemoryMemberRepository implements MemberRepository {
         return store.get(memberId);
     }
 }
+//concurrentHashmap
