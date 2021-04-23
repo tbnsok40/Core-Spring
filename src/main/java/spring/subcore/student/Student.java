@@ -1,4 +1,4 @@
-package spring.sub_core.student;
+package spring.subcore.student;
 
 public class Student {
     Long id;
